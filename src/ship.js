@@ -18,7 +18,8 @@ class Ship{
         }
     }
 }
-const battleship = new Ship('battleship', 5)
-battleship.hit()
 
-module.exports = Ship;
+
+//battleship.hit()
+
+module.exports = Ship
