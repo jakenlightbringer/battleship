@@ -18,8 +18,4 @@ class Ship{
         }
     }
 }
-
-
-//battleship.hit()
-
 module.exports = Ship

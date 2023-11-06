@@ -65,5 +65,5 @@ class Gameboard {
     }
   }
 }
-const gameboard = new Gameboard(10, 10);
+
 module.exports = Gameboard;
