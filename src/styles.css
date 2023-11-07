@@ -1,0 +1,21 @@
+#grid-container{
+    display: flex;
+}
+
+#player-container{
+    display: grid;
+    grid-template-columns: 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px;
+    grid-template-rows: 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px;
+    padding-right: 60px;
+}
+#player-container > button{
+    background-color: aquamarine;
+}
+#enemy-container{
+    display: grid;
+    grid-template-columns: 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px;
+    grid-template-rows: 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px;
+}
+#enemy-container > button{
+    background-color: aquamarine;
+}

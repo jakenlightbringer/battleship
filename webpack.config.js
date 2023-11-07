@@ -6,5 +6,13 @@ module.exports = {
     filename: 'main.js',
     path: path.resolve(__dirname, 'dist'),
   },
-  devtool: 'source-map', // Add this line to enable sourcemaps
+  devtool: 'source-map',
+  module: {
+    rules: [
+      {
+        test: /\.css$/i,
+        use: ["style-loader", "css-loader"],
+      },
+    ],
+  },
 };
