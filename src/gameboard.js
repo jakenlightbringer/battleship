@@ -25,7 +25,7 @@ class Gameboard {
   }
 
   placeShip(x, y, shipType) {
-    if (x < 0 || x >= this.xCord || y < 0 || y >= this.yCord) {
+    if (x < 0 || x > this.xCord || y < 0 || y > this.yCord) {
       throw new Error("Invalid coordinates for ship placement.");
     }
 
