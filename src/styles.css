@@ -19,3 +19,6 @@
 #enemy-container > button{
     background-color: aquamarine;
 }
+.ship-cell{
+    background-color: blueviolet;
+}

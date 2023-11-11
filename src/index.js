@@ -16,8 +16,8 @@ document.addEventListener('DOMContentLoaded', () => {
     enemyGameboard.initializeGrid(); // Initialize the enemy's grid
     createGridButtons(playerContainer, playerGameboard); // Create buttons for the player's grid
     createGridButtons(enemyContainer, enemyGameboard); // Create buttons for the enemy's grid
-    playerGameboard.placeShip(randomX, randomY, 'battleship');
-    playerGameboard.placeShip(randomX, randomY, 'carrier');
+    playerGameboard.placeShip(0, 0, 'battleship');
+    enterPlayerCoords();
     enemyGameboard.placeShip(0,0, 'battleship')
     console.log('working');
 });
@@ -35,6 +35,11 @@ function createGridButtons(container, gameboard) {
             button.textContent = "";
             button.style.height = '50px';
             button.style.width = '50px';
+
+            if(gameboard.shipLocation == true){
+                button.backgroundColor = 'black'
+            }
+
             // Add other button styling...
             if (gameboard === playerGameboard) {
                 button.addEventListener('click', () => handleGridButtonClicked(playerGameboard, i, j));
@@ -42,6 +47,20 @@ function createGridButtons(container, gameboard) {
             container.appendChild(button);
         }
     }
+}
+
+//get user input to palce the ships for the creation of the enemy gameboard -> make the player locations colored will most likely be easier and more doable is not needed for enemy gamebaord will use random numbers -> could create random function to have it run each time
+//create player loop and call  player.enemyAttack for the random attack and have turn swithcing until all ships are sunk.
+//need add AI logic to check if all suck -> maybe not AI could be wiothin gameboard? have reset feature? 
+
+function enterPlayerCoords() {
+    const crusierLocationXString = prompt("Enter Coordinates 0-10")
+    let cruserLocationInt = parseInt(crusierLocationXString)
+    console.log(cruserLocationInt)
+        if(cruserLocationInt == null || cruserLocationInt < 0 || cruserLocationInt > 10){
+            cruserLocationInt = 0
+        }
+        playerGameboard.placeShip(cruserLocationInt, 2, 'carrier')
 }
 
 function handleGridButtonClicked(gameboard, x, y) {

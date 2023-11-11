@@ -35,3 +35,10 @@ GameBoard Class
         Implement drag/drop or typed coordinates
         AI improvement by having it hit adjacent spots if hit 
         2 player option and pass device screen so they cant see boards
+
+
+Need to do -> 
+Get user input for placing ships need to place 5 ships -> could create array after each **successful** input ensure the user has correct coordinates -> once complete remove the ship from array
+    Once all ships have been removed from the array -> can progress to game start -> see if can add coloring so player knows where ship is
+For player v enemy logic add a while true swither to swap between the two gamemodes -> swap between player and enemy turns
+

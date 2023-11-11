@@ -13,6 +13,7 @@ class Gameboard {
     this.grid = [];
     this.initializeGrid();
     this.missedAttacks = [];
+    this.shipLocation = false;
   }
 
   initializeGrid() {
@@ -42,6 +43,7 @@ class Gameboard {
 
     for (let i = 0; i < selectedShip.length; i++) {
       this.grid[x + i][y] = selectedShip;
+      this.shipLocation = true
     }
   }
 
