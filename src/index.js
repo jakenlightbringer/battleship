@@ -29,17 +29,21 @@ function createGridButtons(container, gameboard) {
     for (let i = 0; i < gameboard.xCord; i++) {
         for (let j = 0; j < gameboard.yCord; j++) {
             const button = document.createElement('button');
-            button.classList.add('grid-button');
+            if(container == playerContainer){
+                button.classList.add('grid-button');
+            }
+            else if(container == enemyContainer){
+                button.classList.add('enemy-button')
+            }
+            
+            
             button.dataset.x = i;
             button.dataset.y = j;
             button.textContent = "";
             button.style.height = '50px';
             button.style.width = '50px';
 
-            if(gameboard.shipLocation == true){
-                button.backgroundColor = 'black'
-            }
-
+            
             // Add other button styling...
             if (gameboard === playerGameboard) {
                 button.addEventListener('click', () => handleGridButtonClicked(playerGameboard, i, j));
@@ -52,37 +56,94 @@ function createGridButtons(container, gameboard) {
 //get user input to palce the ships for the creation of the enemy gameboard -> make the player locations colored will most likely be easier and more doable is not needed for enemy gamebaord will use random numbers -> could create random function to have it run each time
 //create player loop and call  player.enemyAttack for the random attack and have turn swithcing until all ships are sunk.
 //need add AI logic to check if all suck -> maybe not AI could be wiothin gameboard? have reset feature? 
-
 function enterPlayerCoords() {
-    const crusierLocationXString = prompt("Enter Coordinates 0-10")
-    let cruserLocationInt = parseInt(crusierLocationXString)
-    console.log(cruserLocationInt)
-        if(cruserLocationInt == null || cruserLocationInt < 0 || cruserLocationInt > 10){
-            cruserLocationInt = 0
+    const carrierLocationXString = prompt("Enter Carrier X Coordinates 0-10")
+    let carrierLocationInt = parseInt(carrierLocationXString)
+
+        if(carrierLocationInt == null || carrierLocationInt < 0 || carrierLocationInt > 10){
+            carrierLocationInt = 0
         }
-        playerGameboard.placeShip(cruserLocationInt, 2, 'carrier')
+        enemyGameboard.placeShip(carrierLocationInt, 2, 'carrier')
+        for (let i = carrierLocationInt; i < carrierLocationInt + 5; i++) {
+            const button = document.querySelector(`.enemy-button[data-x="${i}"][data-y="2"]`);
+            button.style.backgroundColor = 'black';
+        }
+}
+function areAllShipsSunk(gameboard){
+    return gameboard.shipsArray.every(ship => ship.isSunk());
+}
+function randomAttack(){
+    let attackPosition = Math.floor(Math.random() * 11);
+    return attackPosition
 }
 
-function handleGridButtonClicked(gameboard, x, y) {
-   // if (gameboard !== playerGameboard) {
-        // Do not allow clicks on the enemy's gameboard
-       // return;
-    //}
 
-    // Handle grid button clicks for the player's gameboard
+function handleGridButtonClicked(gameboard, x, y) {
+   let isPlayerturn = true;
+   let gameOver = false
     const result = gameboard.receiveAttack(x, y);
     const button = document.querySelector(`.grid-button[data-x="${x}"][data-y="${y}"]`);
 
-    if (result == 'hit') {
-        button.textContent = 'hit';
-        button.disabled = true;
-        button.style.backgroundColor = 'red';
-    } else if (result == 'miss') {
-        button.textContent = 'miss';
-        button.disabled = true;
-    } else if (result == 'sunk') {
-        button.textContent = 'hit';
-        button.style.backgroundColor = 'red';
-        button.disabled = true;
+    while(gameOver === false){
+        if(areAllShipsSunk(playerGameboard)){
+            alert("All your ships are sunk. You lose")
+            gameOver = true
+        }
+        else if(areAllShipsSunk(enemyGameboard)){
+            alert('You win. All enemy ships sunk!')
+            gameOver = true
+        }
+        else if(isPlayerturn){
+            if (result == 'hit') {
+                button.textContent = 'hit';
+                button.disabled = true;
+                button.style.backgroundColor = 'red';
+                isPlayerturn = false
+            } else if (result == 'miss') {
+                button.textContent = 'miss';
+                button.disabled = true;
+                isPlayerturn = false
+            } else if (result == 'sunk') {
+                button.textContent = 'hit';
+                button.style.backgroundColor = 'red';
+                button.disabled = true;
+                isPlayerturn = false
+            }
+            else{
+               const enemyX = randomAttack()
+               const enemyY = randomAttack()
+
+               let enemyResult = enemyGameboard.receiveAttack(enemyX, enemyY)
+               const enemyButton = document.querySelector(`.enemy-button[data-x="${enemyX}"][data-y="${enemyY}"]`);
+
+
+               if (enemyResult == 'hit') {
+                enemyButton.textContent = 'hit';
+                enemyButton.disabled = true;
+                enemyButton.style.backgroundColor = 'red';
+                isPlayerturn = true
+            } else if (enemyResult == 'miss') {
+                enemyButton.textContent = 'miss';
+                enemyButton.disabled = true;
+                isPlayerturn = true
+            } else if (enemyResult == 'sunk') {
+                enemyButton.textContent = 'hit';
+                enemyButton.style.backgroundColor = 'red';
+                enemyButton.disabled = true;
+                isPlayerturn = true
+            }
+
+
+
+            }
+        
+        }
     }
+    
 }
+
+
+
+
+
+  
