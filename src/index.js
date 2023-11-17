@@ -56,19 +56,21 @@ function createGridButtons(container, gameboard) {
 //need add AI logic to check if all suck -> maybe not AI could be wiothin gameboard? have reset feature?
 function enterPlayerCoords() {
   const carrierLocationXString = prompt("Enter Carrier X Coordinates 0-10");
-  let carrierLocationInt = parseInt(carrierLocationXString);
+  const carrierLocationYString = prompt('Enter Carrier Y Coordinates 0-10');
+  let carrierLocationXInt = parseInt(carrierLocationXString);
+  let carrierLocationYInt = parseInt(carrierLocationYString)
 
   if (
-    carrierLocationInt == null ||
-    carrierLocationInt < 0 ||
-    carrierLocationInt > 10
+    carrierLocationXInt == null ||
+    carrierLocationXInt < 0 ||
+    carrierLocationXInt > 10
   ) {
-    carrierLocationInt = 0;
+    carrierLocationXInt = 0;
   }
-  enemyGameboard.placeShip(carrierLocationInt, 2, "carrier");
-  for (let i = carrierLocationInt; i < carrierLocationInt + 5; i++) {
+  enemyGameboard.placeShip(carrierLocationXInt, carrierLocationYInt, "carrier");
+  for (let i = carrierLocationXInt; i < carrierLocationXInt+5; i++) {
     const button = document.querySelector(
-      `.enemy-button[data-x="${i}"][data-y="2"]`,
+      `.enemy-button[data-x="${i}"][data-y="${carrierLocationYInt}"]`,
     );
     button.style.backgroundColor = "black";
   }
