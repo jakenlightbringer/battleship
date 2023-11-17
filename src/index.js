@@ -40,7 +40,7 @@ function createGridButtons(container, gameboard) {
       button.style.height = "50px";
       button.style.width = "50px";
 
-      // Add other button styling...
+     
       if (gameboard === playerGameboard) {
         button.addEventListener("click", () =>
           handleGridButtonClicked(playerGameboard, i, j),
